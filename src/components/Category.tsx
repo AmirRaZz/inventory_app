@@ -1,20 +1,47 @@
-import { useState, ChangeEvent } from "react";
+import { useState } from "react";
+import { Category } from "../types/CategoryType";
+import { SetState } from "../types/SetState";
 
-const CategoryForm = () => {
+
+
+const CategoryForm = ({
+  setCategories,
+}: {
+  // setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+  // setCategories: (
+  //   value: Category[] | ((prev: Category[]) => Category[])
+  // ) => void;
+  setCategories: SetState<Category[]>;
+}) => {
   const [isShow, setIsShow] = useState(false);
   const [categoryFormData, setCategoryFormData] = useState({
     title: "",
     description: "",
   });
+
   const changeHandler = ({
     target,
-  }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setCategoryFormData((prev) => ({
       ...prev,
       [target.name]: target.value,
     }));
   };
-
+  const addNewCategoryHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setCategories((prev) => [
+      ...prev,
+      {
+        ...categoryFormData,
+        createdAt: new Date().toISOString(),
+        id: new Date().getTime(),
+      },
+    ]);
+    setCategoryFormData({
+      title: "",
+      description: "",
+    });
+  };
   return (
     <section>
       <div className={`mb-6 ${isShow ? "" : "hidden"}`} id="category-wrapper">
@@ -67,6 +94,7 @@ const CategoryForm = () => {
             <button
               id="add-new-category"
               className="flex-1 bg-slate-500 text-slate-200 rounded-xl py-2 hover:bg-slate-400 focus:ring-2 focus:ring-slate-300"
+              onClick={addNewCategoryHandler}
             >
               Add Category
             </button>
