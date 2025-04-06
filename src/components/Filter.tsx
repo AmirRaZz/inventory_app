@@ -1,37 +1,45 @@
+import { Category } from "../types/CategoryType";
+
 const Filter = ({
   sort,
   searchValue,
+  categories,
   onSearch,
   onSort,
+  onSelectCategory,
+  selectedCategory,
 }: {
   sort: string;
   searchValue: string;
+  categories: Category[];
   onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSort: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onSelectCategory: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  selectedCategory: string;
 }) => {
   return (
     <>
       <div className="flex items-center justify-between mb-6">
         <label htmlFor="search-input" className="text-slate-500 text-lg">
-          search
+          Search
         </label>
         <input
           type="text"
           name="search-input"
           id="search-input"
-          className="bg-transparent rounded-xl border border-slate-500 text-slate-400"
+          className="bg-transparent rounded-xl border border-slate-500 text-slate-400 px-3 py-1.5 w-2/5"
           value={searchValue}
           onChange={onSearch}
         />
       </div>
       <div className="flex items-center justify-between mb-6">
-        <label htmlFor="sort-products" className="text-slate-500 text-lg">
-          sort
+        <label htmlFor="sort-select" className="text-slate-500 text-lg">
+          Sort
         </label>
         <select
-          name="sort-products"
-          id="sort-products"
-          className="bg-transparent text-slate-400 rounded-xl"
+          name="sort-select"
+          id="sort-select"
+          className="bg-transparent rounded-xl border border-slate-500 text-slate-400 px-3 py-1.5 w-2/5"
           value={sort}
           onChange={onSort}
         >
@@ -44,6 +52,31 @@ const Filter = ({
           <option className="bg-slate-500 text-slate-300" value="earliest">
             earliest
           </option>
+        </select>
+      </div>
+      <div className="flex items-center justify-between mb-6">
+        <label htmlFor="category-select" className="text-slate-500 text-lg">
+          Category
+        </label>
+        <select
+          name="category-select"
+          id="category-select"
+          className="bg-transparent rounded-xl border border-slate-500 text-slate-400 px-3 py-1.5 w-2/5"
+          value={selectedCategory}
+          onChange={onSelectCategory}
+        >
+          <option className="bg-slate-500 text-slate-300" value="">
+            All
+          </option>
+          {categories.map((category) => (
+            <option
+              className="bg-slate-500 text-slate-300"
+              key={category.id}
+              value={category.id}
+            >
+              {category.title}
+            </option>
+          ))}
         </select>
       </div>
     </>
