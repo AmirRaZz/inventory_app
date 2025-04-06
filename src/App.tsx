@@ -6,14 +6,19 @@ import ProductsForm from "./components/Products";
 import ProductsList from "./components/ProductList";
 import { Product } from "./types/ProductType";
 import Filter from "./components/Filter";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useLocalStorage<Category[]>(
+    "categories",
+    []
+  );
+  const [products, setProducts] = useLocalStorage<Product[]>("products", []);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [sort, setSort] = useState("latest");
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+
   useEffect(() => {
     let result = products;
     result = filterSearchTitle(result);
@@ -57,26 +62,6 @@ function App() {
     if (!selectedCategory) return array;
     return array.filter((product) => product.categoryId === selectedCategory);
   };
-
-  useEffect(() => {
-    const savedProducts = JSON.parse(localStorage.getItem("products") || "[]");
-    const savedCategories = JSON.parse(
-      localStorage.getItem("categories") || "[]"
-    );
-    setProducts(savedProducts);
-    setCategories(savedCategories);
-  }, []);
-
-  useEffect(() => {
-    if (products.length) {
-      localStorage.setItem("products", JSON.stringify(products));
-    }
-  }, [products]);
-  useEffect(() => {
-    if (categories.length) {
-      localStorage.setItem("categories", JSON.stringify(categories));
-    }
-  }, [categories]);
 
   return (
     <div className="bg-slate-800 min-h-screen">

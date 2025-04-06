@@ -1,1 +1,1 @@
-export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
+export type SetState<T> = (value: T | ((val: T) => T)) => void;
