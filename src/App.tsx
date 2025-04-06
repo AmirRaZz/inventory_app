@@ -78,7 +78,7 @@ function App() {
 
   return (
     <div className="bg-slate-800 min-h-screen">
-      <NavBar />
+      <NavBar numOfProducts={filteredProducts.length} />
       <div className="container max-w-xl mx-auto p-4">
         <CategoryForm setCategories={setCategories} />
         <ProductsForm categories={categories} setProducts={setProducts} />
