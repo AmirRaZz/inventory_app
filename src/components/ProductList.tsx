@@ -1,5 +1,6 @@
 import { Product } from "../types/ProductType";
 import { Category } from "../types/CategoryType";
+
 const ProductList = ({
   products,
   categories,

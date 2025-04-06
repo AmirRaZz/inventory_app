@@ -27,6 +27,7 @@ const Filter = ({
           type="text"
           name="search-input"
           id="search-input"
+          placeholder="Search by title"
           className="bg-transparent rounded-xl border border-slate-500 text-slate-400 px-3 py-1.5 w-2/5"
           value={searchValue}
           onChange={onSearch}

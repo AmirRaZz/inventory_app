@@ -58,23 +58,25 @@ function App() {
     return array.filter((product) => product.categoryId === selectedCategory);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const savedProducts = JSON.parse(localStorage.getItem("products") || "[]");
-    const savedCategories = JSON.parse(localStorage.getItem("categories") || "[]");
+    const savedCategories = JSON.parse(
+      localStorage.getItem("categories") || "[]"
+    );
     setProducts(savedProducts);
     setCategories(savedCategories);
-  },[])
+  }, []);
 
-  useEffect(()=>{
-    if (products.length){
+  useEffect(() => {
+    if (products.length) {
       localStorage.setItem("products", JSON.stringify(products));
     }
-  },[products])
-  useEffect(()=>{
-    if (categories.length){
+  }, [products]);
+  useEffect(() => {
+    if (categories.length) {
       localStorage.setItem("categories", JSON.stringify(categories));
     }
-  },[categories])
+  }, [categories]);
 
   return (
     <div className="bg-slate-800 min-h-screen">
